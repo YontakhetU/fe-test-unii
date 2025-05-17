@@ -35,17 +35,18 @@ export type ListReportWithSummaryType = {
   summary: ReportSummaryType;
 };
 
-export type CategoryType = {
-  categoryId: string;
-  categoryName: string;
-};
-
 export type SubCategoryType = {
   subCategoryId: string;
   subCategoryName: string;
   categoryId: string; // เพื่อเชื่อมโยงกับ Category
 };
 
+export type CategoryType = {
+  categoryId: string;
+  categoryName: string;
+};
 
 export type ListCategoryType = ResponseType<CategoryType[]>;
+
 export type ListSubCategoryType = ResponseType<SubCategoryType[]>;
+

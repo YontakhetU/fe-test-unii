@@ -34,9 +34,9 @@ import {
 } from "@/components/ui/popover";
 
 import {
-  ListCategoryType,
+  CategoryType,
+  SubCategoryType,
   ListReportWithSummaryType,
-  ListSubCategoryType,
 } from "@/types/report";
 import { formatNumber } from "@/utils/format";
 
@@ -53,8 +53,12 @@ export default function Home() {
     to: undefined,
   });
 
-  const [categories, setCategories] = useState<Array<ListCategoryType>>();
-  const [subcategories, setSubcategories] = useState<ListSubCategoryType>();
+  const [categories, setCategories] = useState<CategoryType[] | undefined>(
+    undefined
+  );
+  const [subcategories, setSubcategories] = useState<
+    SubCategoryType[] | undefined
+  >(undefined);
 
   const fetchData = async () => {
     try {
@@ -83,7 +87,7 @@ export default function Home() {
   const fetchCategoriesData = async () => {
     try {
       const result = await getCategories();
-      setCategories(result);
+      setCategories(result.data);
       console.log(data);
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -94,10 +98,10 @@ export default function Home() {
     }
   };
 
-  const fetchSubCategoriesData = async (value) => {
+  const fetchSubCategoriesData = async (value: string) => {
     try {
       const result = await getSubcategories(value);
-      setSubcategories(result);
+      setSubcategories(result.data);
       console.log(data);
     } catch (err: unknown) {
       if (err instanceof Error) {

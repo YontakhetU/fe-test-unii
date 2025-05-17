@@ -1,4 +1,8 @@
-import { ListCategoryType, ListReportWithSummaryType } from "@/types/report";
+import {
+  ListCategoryType,
+  ListReportWithSummaryType,
+  ListSubCategoryType,
+} from "@/types/report";
 import httpClient from "@/utils/httpClient";
 import { DateRange } from "react-day-picker";
 
@@ -9,8 +13,8 @@ type ReportQueryParams = {
   categoryId?: string;
   subCategoryId?: string;
   orderId?: string;
-  minPrice?: number;
-  maxPrice?: number;
+  minPrice?: string;
+  maxPrice?: string;
   grade?: string;
   keyword?: string;
 };
@@ -57,14 +61,14 @@ export const getReportAll = async (params: ReportQueryParams) => {
   return response.data;
 };
 
-export const getCategories = async () => {
+export const getCategories = async (): Promise<ListCategoryType> => {
   const response = await httpClient.get<ListCategoryType>(`/report/categories`);
-
-  return response.data;
+  return response.data; // data จริง ๆ อยู่ที่นี่
 };
-
-export const getSubcategories = async (categoryId: string) => {
-  const response = await httpClient.get<ListReportWithSummaryType>(
+export const getSubcategories = async (
+  categoryId: string
+): Promise<ListSubCategoryType> => {
+  const response = await httpClient.get<ListSubCategoryType>(
     `/report/subcategories/${categoryId}`
   );
 
